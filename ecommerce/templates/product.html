@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescribtion %}
+
+        {{ product.description|truncatewords:155 }}
+
+
+
+{% endblock %}
+{% block title%}
+    {% if product %}
+        {{ product.name}} - Z Shoppie
+
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx-auto">
+        <p><a href="{% url 'ecart:allProductCat' %}">HOME  </a> | <a href="{{products.category.get_url}}">{{product.category}}</a> | {{product.name}} </p>
+    </div>
+
+
+<div class="container">
+    <br>
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width:18rem">
+            <img src="{{product.image.url}}" alt="{{product.name}}" height="300px" width="300px">
+        </div>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div >
+            <h1 class="my_prod_title">{{product.name}}</h1>
+                <p><i class="fa-solid fa-indian-rupee-sign">{{product.price}}/kg</i></p>
+
+            <p class="text-justify my_prod_text">{{product.describtion}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text"><b>Out Of Stock</b></p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'cart:add_cart' product.id %}"><i class="fa-solid fa-cart-circle-plus">ADD to cart</i></a>
+
+            {% endif %}
+
+        </div>
+            </div>
+            </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
